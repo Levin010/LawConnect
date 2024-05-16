@@ -1,0 +1,111 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LawConnect - Edit Your Profile</title>
+  <link rel="stylesheet" href="{% static 'css/advocate.css' %}">
+</head>
+<body>
+
+  
+  <header>
+    <div class="logo">
+      <img src="{% static 'images/legal_scales_logo.png' %}" alt="LawConnect Logo">
+    </div>
+    <nav>
+      <ul>
+          <li><a href="{% url 'client_dash' %}">Home</a></li>
+          <li><a href="{% url 'advoc_list' %}">Advocate Listing</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropbtn">+ Cases</a>
+            <div class="dropdown-content">
+              <a href="{% url 'client_mycases' %}">My Cases</a>
+              <a href="{% url 'sent_requests' %}">Sent Requests</a>
+            </div>
+          </li>
+          <li><a href="{% url 'client_appts' %}">Appointments</a></li>
+          <li><a href="{% url 'client_bills' %}">My Bills</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropbtn">Account</a>
+            <div class="dropdown-content">
+              <a href="{% url 'client_profile' %}">My Profile</a>
+              <a href="{% url 'logout' %}">Logout</a>
+            </div>
+          </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="editprofile-section">
+    
+    <div class="editprofile-content">
+      <h1>Edit your profile</h1>
+
+      <form id="client-editprofile-form" class="editprofile-form" action="{% url 'client_editprofile' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+      
+        <label for="{{ form.profile_pic.id_for_label }}">{{ form.profile_pic.label }}</label>
+        {{ form.profile_pic }}<br>
+      
+        <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+        {{ form.first_name }}<br>
+      
+        <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+        {{ form.last_name }}<br>
+      
+        <label for="{{ form.phone_number.id_for_label }}">{{ form.phone_number.label }}</label>
+        {{ form.phone_number }}<br>
+      
+        <label for="{{ form.city.id_for_label }}">{{ form.city.label }}</label>
+        {{ form.city }}<br>
+      
+        <label for="{{ form.postal_address.id_for_label }}">{{ form.postal_address.label }}</label>
+        {{ form.postal_address }}<br>
+      
+        <button type="submit">Submit</button>
+      </form>
+    
+    </div>  
+  </section>
+
+  <footer>
+    <div class="footer-columns">
+      <div class="footer-column">
+        <h3>For Clients</h3>
+        <ul>
+          <li><a href="#">Hire an Advocate</a></li>
+          <li><a href="#">Post a Job</a></li>
+          <li><a href="#">Login to Account</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-column">
+        <h3>For Advocates</h3>
+        <ul>
+          <li><a href="#">Apply for Job</a></li>
+          <li><a href="#">Login to Account</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-column">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Help and Support</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-column">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+   
+    <p>© 2024 LawConnect. All rights reserved.</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,192 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LawConnect - Edit Your Profile</title>
+  <link rel="stylesheet" href="{% static 'css/advocate.css' %}">
+</head>
+<body>
+
+  
+  <header>
+    <div class="logo">
+      <img src="{% static 'images/legal_scales_logo.png' %}" alt="LawConnect Logo">
+    </div>
+    <nav>
+      <ul>
+          <li><a href="{% url 'client_dash' %}">Home</a></li>
+          <li><a href="{% url 'advoc_list' %}">Advocate Listing</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropbtn">+ Cases</a>
+            <div class="dropdown-content">
+              <a href="{% url 'client_mycases' %}">My Cases</a>
+              <a href="{% url 'sent_requests' %}">Sent Requests</a>
+            </div>
+          </li>
+          <li><a href="{% url 'client_appts' %}">Appointments</a></li>
+          <li><a href="{% url 'client_bills' %}">My Bills</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropbtn">Account</a>
+            <div class="dropdown-content">
+              <a href="{% url 'client_profile' %}">My Profile</a>
+              <a href="{% url 'logout' %}">Logout</a>
+            </div>
+          </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="list-section">
+    <div class="container">
+        <h2>Advocate Listing</h2>
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search by Name, County, or Category">
+            <select id="filter-select" name="filter_category" onchange="performFilter()">
+              <option value="All Categories">All Categories</option>
+              {% for category in categories %}
+              <option value="{{ category }}">{{ category }}</option>
+              {% endfor %}
+            </select>
+            <select id="filter-county" name="filter_county" onchange="performFilter()">
+              <option value="All Counties">All Counties</option>
+              {% for county in counties %}
+              <option value="{{ county }}">{{ county }}</option>
+              {% endfor %}
+            </select>
+            <button id="search-button" onclick="performSearch()">Search</button>
+        </div>
+        <div class="row">
+            {% for advocate in advocates %}
+            {% if advocate.first_name or advocate.last_name or advocate.phone_number or advocate.company_name or advocate.city or advocate.address or advocate.postal_address or advocate.category %}
+            <div class="col">
+              <div class="advocate-profile">
+                {% if advocates.profile_pic %}
+                <img src="{{ advocates.profile_pic.url }}" alt="Profile Picture">
+                {% else %}
+                <img src="{% static 'images/default_avatar.png' %}" alt="Default Avatar">
+                {% endif %}
+                <h3>{{ advocate.first_name }} {{ advocate.last_name }}</h3>
+                <p>Category: {{ advocate.get_category_display }}</p>
+                <p>Law Firm: {{ advocate.law_firm }}</p>
+                <p>County: {{ advocate.county }}</p>
+
+                <a href="{% url 'make_appt' advocate_id=advocate.id %}" class="advoc-view-button">Book Appointment</a>
+                <a href="{% url 'advoc_view' advocate_id=advocate.id %}" class="advoc-view-button">Send Request</a>
+              </div>
+            </div>
+            {% if forloop.counter|divisibleby:3 and not forloop.last %}
+          </div>
+        <div class="row">
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    
+  </section>
+
+  <footer>
+    <div class="footer-columns">
+      <div class="footer-column">
+        <h3>For Clients</h3>
+        <ul>
+          <li><a href="#">Hire an Advocate</a></li>
+          <li><a href="#">Post a Job</a></li>
+          <li><a href="#">Login to Account</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-column">
+        <h3>For Advocates</h3>
+        <ul>
+          <li><a href="#">Apply for Job</a></li>
+          <li><a href="#">Login to Account</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-column">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Help and Support</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-column">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+   
+    <p>© 2024 LawConnect. All rights reserved.</p>
+  </footer>
+
+  <script>
+    
+    function performSearch() {
+        var input, filter, cards, card, h3, p, i, txtValue;
+        input = document.getElementById("search-input");
+        filter = input.value.toUpperCase();
+        cards = document.getElementsByClassName("advocate-profile");
+
+        for (i = 0; i < cards.length; i++) {
+            card = cards[i];
+            h3 = card.getElementsByTagName("h3")[0];
+            p = card.getElementsByTagName("p");
+            txtValue = h3.textContent || h3.innerText;
+
+            // Search by first name, last name, county, or category
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                card.style.display = "";
+            } else {
+                var found = false;
+                for (var j = 0; j < p.length; j++) {
+                    var innerText = p[j].textContent || p[j].innerText;
+                    if (innerText.toUpperCase().indexOf(filter) > -1) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+    }
+
+    // Function to perform filtering based on category and county
+    function performFilter() {
+      var category = document.getElementById('filter-select').value;
+      var county = document.getElementById('filter-county').value;
+  
+      // Make an AJAX request to the server with the selected filtering criteria
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', '/your-url/?filter_category=' + category + '&filter_county=' + county, true);
+      xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+              // Update the advocate listings on the page based on the response from the server
+              document.getElementById('advocate-listings').innerHTML = xhr.responseText;
+          }
+      };
+      xhr.send();
+    }
+
+  // Add event listeners to trigger filtering when dropdowns change
+  document.getElementById('filter-select').addEventListener('change', function () {
+      performFilter();
+  });
+
+  document.getElementById('filter-county').addEventListener('change', function () {
+      performFilter();
+  });
+
+  </script>
+
+</body>
+</html>

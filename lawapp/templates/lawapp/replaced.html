@@ -1,0 +1,765 @@
+<!Signup html>
+
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LawConnect - Sign Up</title>
+  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body>
+
+  {% for message in messages %}
+  <div class="alert alert-{{message.tags}} alert-dismissable fade show" role="alert">
+  <strong>Message: </strong> {{message}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="close">
+  <span aria-hidden="true">&times;</span>
+  </button>
+  </div>
+  {% endfor %}
+
+  <header>
+    <div class="logo">
+      <img src="legal_scales_logo.png" alt="LawConnect Logo">
+      <h1>LawConnect</h1>
+    </div>
+  </header>
+
+  <section class="signup-section">
+
+    <div class="signup-content">
+      <h1>Sign Up</h1>
+      
+      <div class="signup-buttons">
+        <button id="client-btn" onclick="showClientForm()">Client</button>
+        <button id="advocate-btn" onclick="showAdvocateForm()">Advocate</button>
+      </div>
+      
+      <form id="client-form" class="signup-form" action="" method="POST">
+        {% csrf_token %}
+        <input type="text" id="fname" name="fname" placeholder="First Name" required>
+        <input type="text" id="lname" name="lname" placeholder="Last Name" required>
+        <input type="text" id="username" name="username" placeholder="Username" autocomplete="new-username" required>
+        <input type="email" id="email" name="email" placeholder="Email" required>
+        <input type="password" id="pass1" name="pass1" placeholder="Password" autocomplete="new-password" required>
+        <input type="password" id="pass2" name="pass2" placeholder="Confirm Password" required>
+        <button type="submit">Sign Up</button>
+
+      </form>
+      
+      <form id="advocate-form" class="signup-form">
+      {%csrf_token%}
+        <input type="text" placeholder="Company Name" required>
+        <input type="text" placeholder="First Name" required>
+        <input type="text" placeholder="Last Name" required>
+        <input type="text" placeholder="Username" required>
+        <input type="email" placeholder="Email" required>
+        <input type="tel" placeholder="Phone" required>
+        <input type="text" placeholder="Address" required>
+        <input type="text" placeholder="City" required>
+        <input type="text" placeholder="Postal Code" required>
+        <select required>
+          <option disabled selected>Select Category</option>
+          <option value="Corporate Law">Corporate Law</option>
+          <option value="Criminal Defense">Criminal Defense</option>
+          <option value="Environmental Law">Environmental Law</option>
+          <option value="Entertainment Law">Entertainment Law</option>
+          <option value="Family Law">Family Law</option>
+          <option value="Finance Law">Finance Law</option>
+          <option value="General Practice">General Practice</option>
+          <option value="Immigration Law">Immigration Law</option>
+        </select>
+        <input type="password" placeholder="Password" required>
+        <input type="password" placeholder="Confirm Password" required>
+        <button type="submit">Sign Up</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2022 LawConnect. All rights reserved.</p>
+  </footer>
+
+  <!buttons display forms when clicked>
+  <script src="script.js"></script>
+  <script>
+    window.onload = function() {
+      showClientForm();
+    }
+    
+    function showClientForm() {
+      document.getElementById('client-form').style.display = 'block';
+      document.getElementById('advocate-form').style.display = 'none';
+      
+      document.getElementById('client-btn').classList.add('active');
+      document.getElementById('advocate-btn').classList.remove('active');
+    }
+    
+    function showAdvocateForm() {
+      document.getElementById('advocate-form').style.display = 'block';
+      document.getElementById('client-form').style.display = 'none';
+      
+      document.getElementById('advocate-btn').classList.add('active');
+      document.getElementById('client-btn').classList.remove('active');
+    }
+  </script>
+</body>
+</html>
+
+{{ advocate_form.as_p }}
+
+<!Signup html>
+
+<!Login html>
+
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LawConnect - Login</title>
+  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+</head>
+<body>
+
+  {% for message in messages %}
+  <div class="alert alert-{{message.tags}} alert-dismissable fade show" role="alert">
+  <strong>Message: </strong> {{message}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="close">
+  <span aria-hidden="true">&times;</span>
+  </button>
+  </div>
+  {% endfor %}
+
+  <header>
+    <div class="logo">
+      <img src="{% static 'images/legal_scales_logo.png' %}" alt="LawConnect Logo">
+      <h1>LawConnect</h1>
+    </div>
+  </header>
+
+  <section class="login-section">
+    <div class="login-content">
+      <h1>Login</h1>
+
+      <form id="login-form" class="login-form" action="" method="POST">
+        {% csrf_token %}
+        <input type="text" id="username" name="username" placeholder="Username" autocomplete="new-username" required>
+        <input type="password" id="pass1" name="pass1" placeholder="Password" autocomplete="new-password" required>
+        <button type="submit">Login</button>
+      </form>
+
+      <div class="login-links">
+        <a href="#">Don't have an account?</a>
+        <a href="#">Forgot password?</a>
+      </div>
+      
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2022 LawConnect. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
+
+<!Login html>
+
+<!Views.py>
+
+def index(request):
+    return render(request, "lawapp/index.html")
+
+def signup(request):
+    
+    client_form = ClientSignupForm(request.POST or None)
+    advocate_form = AdvocateSignupForm(request.POST or None)
+
+    if request. method == "POST":
+        # username = request.POST.get('username')
+        fname = request.POST['fname']
+        lname = request.POST['lname']
+        username = request.POST['username']
+        email = request.POST['email']
+        pass1 = request.POST['pass1']
+        pass2 = request.POST['pass2']
+
+        if User.objects.filter(username=username):
+            messages.error(request, "Username already exists. Please try a different one.")
+            return redirect('signup')
+        
+        if User.objects.filter(email=email):
+            messages.error(request, "Email already exists. Please try a different one.")
+            return redirect('signup') 
+        
+        if len(username)> 15:
+            messages.error(request, "Username must be under 15 characters.")
+
+        if pass1 != pass2:
+            messages.error(request, "The passwords didn't match.")
+
+        if not username.isalnum():
+            messages.error(request, "Username must be alphanumeric.")
+            return redirect('signup') 
+
+        myuser = User.objects.create_user(username, email, pass1)
+        myuser.first_name = fname
+        myuser.last_name = lname
+
+        myuser.save()
+
+        messages.success(request, "Your account has been successfully created:)")
+
+        return redirect('login')
+    
+    context = {
+        'client_form': client_form,
+        'advocate_form': advocate_form,
+    }
+
+
+    return render(request, "lawapp/signup.html", context)    
+
+def login(request):
+    form = LoginForm()
+
+    if request.method == 'POST':
+        username = request.POST['username']
+        pass1 = request.POST['pass1']
+
+        user = authenticate(username=username, password=pass1)
+
+        if user is not None:
+            auth_login(request, user)
+            fname = user.first_name
+            return render(request, "lawapp/clientdash.html", {'fname': fname})
+
+        else:
+            messages.error(request, "Wrong username/password. Try again.")
+            return redirect('login')
+
+    return render(request, "lawapp/login.html", {'form': form})    
+
+def clientdash(request):
+    
+    return render(request, "lawapp/clientdash.html")
+
+<!Views.py>
+
+def signup(request):
+    client_form = ClientSignupForm(request.POST or None)
+    advocate_form = AdvocateSignupForm(request.POST or None)
+
+    if request.method == 'POST':
+        if 'client-form-submit' in request.POST and client_form.is_valid():
+            user = client_form.save(commit=False)
+            username = user.username
+            email = user.email
+            if User.objects.filter(username=username).exists():
+                messages.error(request, 'Username already exists.')
+            elif User.objects.filter(email=email).exists():
+                messages.error(request, 'Email already registered.')
+            else:
+                user.is_client = True
+                user.save()
+                client_form.save_m2m()
+                auth_login(request, user)
+                messages.success(request, 'Account created successfully')
+                return redirect("login")  # Replace 'client_dashboard' with your desired client dashboard URL
+        elif 'advocate-form-submit' in request.POST and advocate_form.is_valid():
+            user = advocate_form.save(commit=False)
+            username = user.username
+            email = user.email
+            if User.objects.filter(username=username).exists():
+                messages.error(request, 'Username already exists.')
+            elif User.objects.filter(email=email).exists():
+                messages.error(request, 'Email already registered.')
+            else:
+                user.is_advocate = True
+                user.save()
+                advocate_form.save_m2m()
+                auth_login(request, user)
+                messages.success(request, 'Account created successfully')
+                return redirect("login")  # Replace 'advocate_dashboard' with your desired advocate dashboard URL
+        else:
+            messages.error(request, 'Invalid form data.')
+
+    context = {
+        'client_form': client_form,
+        'advocate_form': advocate_form,
+    }
+
+    return render(request, "lawapp/signup.html", context) 
+
+    <!Views.py>
+
+    def user_login(request):
+    form = LoginForm()
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            # Check user type and set is_client flag
+            if user.is_authenticated and user.is_client:
+                user.is_client = True
+                user.save()
+
+            # Redirect based on user type
+            if user.is_client:
+                return redirect("client_dash")
+            elif user.is_advocate:
+                return redirect("advoc_dash")
+            elif user.is_admin:
+                return redirect('admin_dashboard')
+        else:
+            messages.error(request, 'Invalid username or password.')
+
+    return render(request, "lawapp/login.html", {'form': form})
+
+    <!Views.py>
+
+<!Login.html>
+
+<section class="login-section">
+  <div class="login-content">
+    <h1>Login</h1>
+
+    <form id="login-form" class="login-form" action="{% url 'login' %}" method="POST">
+      {% csrf_token %}
+      {{ form.username }}
+      {{ form.password }}
+
+      <input type="hidden" name="next" value="{{ next }}">
+      <button type="submit">Login</button>
+    </form>
+
+    <div class="login-links">
+      <a href="#">Don't have an account?</a>
+      <a href="#">Forgot password?</a>
+    </div>
+    
+  </div>
+</section>
+
+<!Login.html>
+
+<!Views.py>
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            if user.groups.filter(name='client').exists():
+                # User belongs to the 'client' group
+                login(request, user)
+                return redirect('client_dash')
+            elif user.groups.filter(name='advocate').exists():
+                # User belongs to the 'advocate' group
+                login(request, user)
+                return redirect('advoc_dash')
+            else:
+                next_url = request.POST.get('next')
+                
+                if next_url:
+                    login(request, user)
+                    return redirect(next_url)
+            
+                
+        else:
+            messages.info(request, 'Username or Password is incorrect')
+
+    context = {'next': request.GET.get('next')}
+    return render(request, "lawapp/login.html", context)    
+
+<!Views.py>
+
+<!advoc_profile.html>
+<section class="profile-section">
+  <div class="profile-preview">
+      <h2>Profile Preview</h2>
+      <div class="user-details">
+        {% if advocate_details.profile_pic %}
+            <img src="{{ advocate_details.profile_pic.url }}" alt="Profile Picture">
+        {% else %}
+            <img src="{% static 'lawapp/static/images/default_avatar.png' %}" alt="Default Avatar">
+        {% endif %}
+        <h3 id="preview-name">{{ profile.first_name }} {{ profile.last_name }}</h3>
+        <p id="preview-phone">Phone: {{ profile.phone_number }}</p>
+        <p id="preview-company">Company: {{ profile.company_name }}</p>
+        <p id="preview-city">City: {{ profile.city }}</p>
+        <p id="preview-address">Address: {{ profile.address }}</p>
+        <p id="preview-postal">Postal Address: {{ profile.postal_address }}</p>
+        <p id="preview-category">Category: {{ profile.category }}</p>
+        <a href="{% url 'advoc_editprofile' %}" class="edit-button">Edit Profile</a>
+      </div>
+    </div>
+</section>
+
+<!advoc_profile.html>
+
+<!advoc_casedetails.html>
+{% for update in updates %}
+
+  <li>{{ update.title }} - {{ update.date }} - {{ update.description }}</li>
+{% endfor %}
+
+<!advoc_casedetails.html>
+
+<!views.py>
+def advoc_editprofile(request):
+    advocate_profile = AdvocateDetails.objects.get(user=request.user)
+    form = AdvocateProfileForm(instance=advocate_profile)
+
+    if request.method == 'POST':
+        form = AdvocateProfileForm(request.POST, request.FILES, instance=advocate_profile)
+        if form.is_valid():
+            form.save()
+            return redirect('advoc_profile')
+        else:
+                messages.error(request, 'Invalid form data. Please try again.')
+    
+  
+    context = {'form': form}
+    
+    
+    return render(request, "lawapp/advocate/advoc_editprofile.html", context)
+
+<!views.py>
+
+<!advoc_mycases>
+
+section.myclients {
+  
+  min-height: calc(100vh - 140px);
+  background-color: #FFFFFF;
+}
+
+.client-profiles {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.client-profiles h2 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.client-profile {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  flex-basis: 100%;
+  background-color: #f4f4f4;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border-color: #000000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.client-profile h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.client-profile h4 {
+  text-align: left;
+  color: #FF0000;
+}
+
+.client-profile h5 {
+  margin-top: 0;
+  margin-right: 10px;
+  color: #00FF00;
+}
+
+<!advoc_mycases>
+
+<!set_appointment views.py>
+def set_appointment(request):
+
+    # Calculate future dates within the next 7 days
+    today = datetime.now().date()
+    future_dates = [today + timedelta(days=i) for i in range(1, 8)]
+
+    # Get existing appointment settings for the advocate
+    existing_settings = SetAppointment.objects.filter(advocate=request.user, date__in=future_dates).order_by('date')
+
+    SetAppointmentFormSet = formset_factory(SetAppointmentForm, extra=len(future_dates))
+
+    if request.method == 'POST':
+        formset = SetAppointmentFormSet(request.POST)
+        if formset.is_valid():
+            # Save appointment settings for each future date
+            for form in formset:
+                if form.is_valid():
+                    appointment_settings = form.save(commit=False)
+                    appointment_settings.advocate = request.user
+                    appointment_settings.save()
+            messages.success(request, 'Appointment settings saved successfully.')
+            return redirect('advoc_dash')
+        else:
+            messages.error(request, 'Failed to save your appointment settings. Please try again.')
+    else:
+        # Prepopulate formset with existing appointment settings if available
+        initial_data = [{'date': settings.date,
+                         'morning_start': settings.morning_start if settings else '06:00',
+                         'morning_end': settings.morning_end if settings else '12:00',
+                         'afternoon_start': settings.afternoon_start if settings else '12:00',
+                         'afternoon_end': settings.afternoon_end if settings else '16:00',
+                         'evening_start': settings.evening_start if settings else '16:00',
+                         'evening_end': settings.evening_end if settings else '22:00',
+                         'appointment_duration': settings.appointment_duration if settings else 15}
+                        for settings in existing_settings]
+        
+        
+        formset = SetAppointmentFormSet(initial=initial_data)
+
+        
+
+    context = {
+        'formset': formset,
+        'future_dates': future_dates,  
+               }
+    
+    
+return render(request, "lawapp/advocate/set_appointment.html", context)
+
+<!set_appointment views.py>
+
+<!set_appointment html>
+<section class="set-section">
+  <div class="set-content">
+    <h1>Appointment Settings</h1>
+
+    <form id="set-form" class="set-form" action="{% url 'set_appointment' %}" method="POST">
+      {% csrf_token %}
+      {{ formset.management_form }}
+      {% for form in formset %}
+          
+          {{ form.as_p }}
+      {% endfor %}
+
+      <button type="submit" name="set-form-submit">Submit</button>
+    </form>
+    
+  </div>
+</section>
+
+<!set_appointment html>
+
+<!advoc_view>
+def advoc_view(request, advocate_id):
+    
+    # Fetch the AdvocateDetails object based on the user associated with the advocate
+    advocate_details = get_object_or_404(AdvocateDetails, id=advocate_id)
+
+    if request.method == 'POST':
+        form = RequestForm(request.POST)
+        if form.is_valid():
+            request_obj = form.save(commit=False)
+            request_obj.client = request.user
+            request_obj.advocate_id = advocate_id
+            request_obj.save()
+            messages.success(request, 'Representation request submitted successfully.')
+            form = RequestForm()
+        else:
+            messages.error(request, 'Failed to submit representation request. Please check the form.')    
+    else:
+        form = RequestForm()
+
+    context = {
+        'form': form ,
+        'advocate_details': advocate_details
+        }
+    
+    
+    return render(request, "lawapp/advoc_view.html", context)
+<!advoc_view>
+
+
+<!models.py SetAppointment>
+    class SetAppointment(models.Model):
+    advocate = models.OneToOneField(User, on_delete=models.CASCADE)
+    from_date = models.DateField(null=True, blank=True)
+    to_date = models.DateField(null=True, blank=True)
+    MORNING_CHOICES = [(str(i), f'{i:02}:00') for i in range(6, 13)]
+    AFTERNOON_CHOICES = [(str(i), f'{i:02}:00') for i in range(12, 17)]
+    EVENING_CHOICES = [(str(i), f'{i:02}:00') for i in range(16, 23)]
+    morning_start = models.CharField(max_length=5, choices=MORNING_CHOICES, default='06:00', null=True, blank=True)
+    morning_end = models.CharField(max_length=5, choices=MORNING_CHOICES, default='12:00', null=True, blank=True)
+    afternoon_start = models.CharField(max_length=5, choices=AFTERNOON_CHOICES, default='12:00', null=True, blank=True)
+    afternoon_end = models.CharField(max_length=5, choices=AFTERNOON_CHOICES, default='16:00', null=True, blank=True)
+    evening_start = models.CharField(max_length=5, choices=EVENING_CHOICES, default='16:00', null=True, blank=True)
+    evening_end = models.CharField(max_length=5, choices=EVENING_CHOICES, default='22:00', null=True, blank=True)
+    DURATION_CHOICES = [
+        (15, '15 minutes'),
+        (30, '30 minutes'),
+        (45, '45 minutes'),
+        (60, '1 hour'),
+    ]
+    appointment_duration = models.PositiveSmallIntegerField(choices=DURATION_CHOICES, default=15, null=True, blank=True)
+
+    def __str__(self):
+        return f"Appointment settings for {self.advocate.username}"
+
+    def update_settings(self, date, morning_start, morning_end, afternoon_start, afternoon_end, evening_start, evening_end, appointment_duration):
+        self.date = date
+        self.morning_start = morning_start
+        self.morning_end = morning_end
+        self.afternoon_start = afternoon_start
+        self.afternoon_end = afternoon_end
+        self.evening_start = evening_start
+        self.evening_end = evening_end
+        self.appointment_duration = appointment_duration
+        self.save()
+
+<!models.py SetAppointment>
+
+
+<!advoc_view views.py 2>
+def advoc_view(request, advocate_id):
+    
+    # Fetch the AdvocateDetails object based on the user associated with the advocate
+    advocate_details = get_object_or_404(AdvocateDetails, id=advocate_id)
+    appointment_settings = get_object_or_404(SetAppointment, advocate=advocate_details.user)
+
+    form = RequestForm()
+    appointment_form = None
+
+    if request.method == 'POST':
+        if 'request-form-submit' in request.POST:
+            # Process representation request form
+            form = RequestForm(request.POST)
+            if form.is_valid():
+                request_obj = form.save(commit=False)
+                request_obj.client = request.user
+                request_obj.advocate_id = advocate_id
+                request_obj.save()
+                messages.success(request, 'Representation request submitted successfully.')
+                form = RequestForm()
+            else:
+                messages.error(request, 'Failed to submit representation request. Please check the form.')
+        elif 'appointment-form-submit' in request.POST:
+            # Process appointment booking form
+            
+            appointment_form = AppointmentBookingForm(request.POST, available_slots=available_slots)
+            if appointment_form.is_valid():
+                slot = appointment_form.cleaned_data['slot']
+                phone_number = appointment_form.cleaned_data['phone_number']
+                appointment_type = appointment_form.cleaned_data['appointment_type']
+                appointment = appointment_form.save(commit=False)
+                appointment.client = request.user
+                appointment.advocate = advocate_details.user
+                appointment.save()
+                messages.success(request, 'Appointment booked successfully.')
+                appointment_form = None
+            else:
+                messages.error(request, 'Failed to book appointment. Please check the form.')
+        return redirect('advoc_view', advocate_id=advocate_id)
+    else:
+        form = RequestForm()
+        available_slots = calculate_available_slots(appointment_settings)
+        appointment_form = AppointmentBookingForm(available_slots=available_slots)
+
+    context = {
+        'form': form,
+        'appointment_form': appointment_form,
+        'advocate_details': advocate_details
+    }
+    
+    
+    return render(request, "lawapp/advoc_view.html", context)
+<!advoc_view views.py 2>
+
+
+<!-- <a href="{% url 'bill_client' case.id %}" class="control-button edit-case">Edit Case</a>
+        
+            <form class="control-button bill-client-form" method="post" action="{% url 'bill_client' case.id %}">
+                {% csrf_token %}
+                <button type="submit" class="bill-client">Bill Client</button>
+            </form>
+        
+            <form class="control-button close-case-form" method="post" action="{% url 'close_case' case.id %}">
+                {% csrf_token %}
+                <button type="submit" class="close-case">Close Case</button>
+            </form> -->
+
+
+<! Advoc_mycases.html>
+
+<section class="mycases">
+  <div class="case-profiles">
+    <h1>Open Cases</h1>
+      {% if cases %}
+          {% for case in cases %}
+              <div class="case-box">
+                <div class="case-profile">
+                  <h2>{{ case.case_name }}</h2>
+                  <p><strong>Client Role:</strong> {{ case.client_role }}</p>
+                  <p><strong>Date Launched:</strong> {{ case.date_launched }}</p>
+                </div>
+                <div class="case-button">
+                  <a href="{% url 'advoc_casedetails' case.id %}" class="open-button">Open</a>
+                </div>
+              </div>  
+          {% endfor %}
+      {% else %}
+          <p>No cases found.</p>
+      {% endif %}  
+  </div>
+            
+</section>
+
+<! Advoc_mycases.html>
+
+<! Advoc_view.html>
+<form id="request-form" class="request-form" method="POST" action="{% url 'advoc_view' advocate_id=advocate_details.user.id %}">
+  {% csrf_token %}
+  <input type="hidden" name="request_id" value="{{ request_id }}">
+  {{ form.as_p }}
+  <button type="submit" name="request-submit">Submit Request</button>
+</form>
+<! Advoc_view.html>
+
+class Request(models.Model):
+    client = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_requests')
+    advocate = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_requests')
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    role = models.CharField(max_length=10, choices=[('plaintiff', 'Plaintiff/Petitioner'), ('defendant', 'Defendant/Respondent')])
+    case_description = models.TextField()
+    date_created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    accepted = models.BooleanField(default=False)
+    rejected = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Request from {self.client.username} to {self.advocate.username}"
+
+
+
+<! Worst day ever! >
+
+<form id="accept-form-{{ request.id }}" action="{% url 'accept_request' request.id %}" method="post">
+  {% csrf_token %}
+  <input type="hidden" name="button_clicked" value="accept">
+  <button class="launch-button" type="submit">Launch Case</button>
+</form>
+
+<form id="reject-form-{{ request.id }}" action="{% url 'reject_request' request.id %}" method="post">
+  {% csrf_token %}
+  <input type="hidden" name="button_clicked" value="reject">
+  <button class="reject-button" type="submit">Reject Case</button>
+</form>

@@ -1,0 +1,608 @@
+/* Admin pages */
+
+body {
+    margin: 0;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+  header {
+    
+    background-color: #8B0000;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .logo img {
+    width: 200px;
+    height: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .logo h1 {
+    margin-left: 10px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  nav ul li {
+    margin-left: 20px;
+  }
+  
+  nav ul li a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px;
+  }
+  
+  header nav ul li a:hover {
+    text-decoration: underline;
+    font-size: 1.1em;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #8B0000;
+    min-width: 160px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #8B0000;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+    right:0;
+  }
+  
+  .dropdown:hover .dropbtn {
+    background-color: #8B0000;
+  }
+  
+  section.hero {
+    height: 25vh; /* Set the height to 100% of the viewport height */
+    padding: 40px;
+    text-align: center;
+    background-image: url('/static/images/background_1.png');
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+  }
+  
+  .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .hero-content h2 {
+    color: #FFFFFF;
+    font-size: 34px;
+  }
+  
+  .hero-content p {
+    color: #FFFFFF;
+    font-size: 20px;
+  }
+  
+  .cta-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #8B0000;
+    color: #FFFFFF;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    cursor: pointer;
+  }
+  
+  .cta-button:hover {
+    background-color: #ac0000;
+    text-decoration: underline;
+    font-size: 1.1em;
+  }
+  
+  
+  .steps-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .how-it-works {
+    background-color: #FFFFFF;
+    padding: 40px 0;
+    text-align: left;
+  }
+  
+  .steps {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  
+  .step {
+    flex: 0 0 calc(30% - 20px);
+    height: 120px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #8B0000;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+  
+  .steps-container h2 {
+    color: #000000;
+    font-size: 34px;
+    margin-bottom: 20px;
+  }
+  
+  .steps-container h3 {
+    color: #FFFFFF;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .steps-container p {
+    color: #FFFFFF;
+    font-size: 18px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+  
+  footer {
+    background-color: #8B0000;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  footer p {
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 18px;
+  }
+  
+  .footer-columns {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    text-align: left;
+  }
+  
+  .footer-columns::after {
+    content: '';
+    flex: 1; 
+  }
+  
+  .footer-column {
+    width: calc(25% - 20px); 
+    margin-right: 20px;
+    display: inline-block;
+    vertical-align: top; 
+  }
+  
+  .footer-column h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    text-align: left;
+    text-decoration: underline;
+  }
+  
+  .footer-column ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .footer-column ul li {
+    margin-bottom: 5px;
+  }
+  
+  .footer-column ul li a {
+    color: #FFFFFF;
+    text-decoration: none;
+    display: block;
+    font-size: 18px;
+  }
+  
+  .footer-column ul li a:hover {
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 1.1em;
+  }
+
+
+/* Additional Admin_dash */
+
+
+/* Case_report.html */
+
+section.case-report {
+  
+  min-height: calc(100vh - 140px);
+  background-color: #FFFFFF;
+}
+
+.case-report-content {
+  margin-left: 40px;
+}
+
+.case-report-content h1 {
+  font-size: 34px;
+  margin-bottom: 20px;
+  text-align: left;
+  text-decoration: underline;
+}
+
+.case-table {
+  width: 70%;
+  border-collapse: collapse;
+  margin-top: 30px;
+  margin-left: 0;
+  margin-bottom: 100px;
+}
+
+.case-description {
+  white-space: pre-line; /* Preserve line breaks */
+  overflow-wrap: break-word; /* Wrap long lines */
+}
+
+.case-table th, .case-table td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid black;
+}
+
+.case-table th {
+  width: 30%;
+  color:#FFFFFF;
+  font-weight: bold;
+  font-size: 18px;
+  background-color: #8B0000;
+}
+
+.case-table td {
+  
+  font-size: 18px;
+  
+}
+
+.case-table tr {
+  height: 50px; /* Set the height of each row */
+}
+
+.case-table th:first-child,
+.case-table td:first-child {
+  text-align: right;
+}
+
+.pdf-button-container {
+  text-align: right; /* Align the button to the right */
+  margin-bottom: 20px; /* Add some bottom margin to separate the button from the table */
+}
+
+.pdf-button {
+  padding: 8px 16px;
+  background-color: #8B0000; /* Blue color, you can change it to your preferred color */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.pdf-button:hover {
+  background-color: #8B0000; /* Darker shade of blue on hover */
+  text-decoration: underline;
+  font-size: 1.1em;
+}
+
+/* Admin/Advocates.html */
+
+section.advocates-table {
+  
+  min-height: calc(100vh - 140px);
+  background-color: #FFFFFF;
+}
+
+.advoc-table {
+  margin-left: 40px;
+}
+
+.advoc-table h1 {
+  font-size: 34px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+table {
+  width: 90%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th, td {
+  padding: 8px;
+  border: 1px solid #000000;
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden; /* Hide overflow text */
+  text-overflow: ellipsis;
+}
+
+th {
+  background-color: #FFFFFF;
+  text-align: left;
+}
+
+tr:nth-child(even) {
+  background-color: #FFFFFF;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
+
+/* Set maximum width for specific columns */
+td:nth-child(1), th:nth-child(1) { /* First column */
+  max-width: 20px; /* Adjust as needed */
+}
+
+td:nth-child(2), th:nth-child(2) { 
+  max-width: 20px; 
+} 
+
+td:nth-child(3), th:nth-child(3) { /* Third column */
+  max-width: 20px; /* Adjust as needed */
+}
+
+td:nth-child(4), th:nth-child(4) { 
+  max-width: 20px; 
+}
+
+td:nth-child(5), th:nth-child(5) { 
+  max-width: 20px; 
+}
+
+td:nth-child(6), th:nth-child(6) { 
+  max-width: 30px; 
+}
+
+
+.pdf-button {
+  background-color: #8B0000;
+  color: white;
+  margin-right: 20px;
+}
+
+.pdf-button:hover {
+  background-color: darken(#8B0000, 20%);
+  text-decoration: underline;
+  font-size: 1.1em;
+}
+
+@page {
+  size: letter portrait;
+  margin-top: 95px;
+  margin-bottom: 50px;
+  /* ... */
+}
+
+a.case-name {
+  color: black;
+  text-decoration: none;
+}
+
+a.case-name:hover {
+  text-decoration: underline;
+}
+
+/* case_list */
+
+section.mycases {
+  
+  min-height: calc(100vh - 140px);
+  background-color: #FFFFFF;
+}
+
+.case-profiles {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.case-profiles h1 {
+  color: #000000;
+  font-size: 34px;
+  margin-bottom: 20px;
+}
+
+.case-profiles h2 {
+  color: #FFFFFF;
+  margin-top: 0;
+}
+
+.case-profiles p {
+  color: #FFFFFF;
+  
+}
+
+.case-box {
+  display: flex;
+  justify-content: space-between;/*flex-start*/
+  align-items: left;
+  flex-wrap: wrap;
+  flex-basis: 100%;
+  background-color: #8B0000;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin-bottom: 10px;
+}
+
+.case-profile {
+  flex: 1;
+  padding-right: 10px;
+  height: 100px;
+}
+
+.case-profile h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.case-button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  
+}
+
+
+.open-button {
+  
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  background-color: #000000;
+  color: white;
+  
+}
+
+.open-button:hover {
+  background-color: #000000;
+  text-decoration: underline;
+  font-size: 1.1em;
+}
+
+
+/* messages*/
+
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+.closebtn {
+  float: right;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+
+/* Clients.html */
+
+section.clients-table {
+  
+  min-height: calc(100vh - 140px);
+  background-color: #FFFFFF;
+}
+
+.client-content {
+  margin-left: 40px;
+}
+
+.client-content h1 {
+  font-size: 34px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.client-table {
+  width: 90%;
+  border-collapse: collapse;
+  margin-bottom: 150px;
+}
+
+.client-table th, td {
+  padding: 8px;
+  border: 1px solid #000000;
+  white-space: nowrap; /* Prevent text wrapping */
+  overflow: hidden; /* Hide overflow text */
+  text-overflow: ellipsis;
+}
+
+.client-table th {
+  background-color: #FFFFFF;
+  text-align: left;
+}
+
+.client-table tr:nth-child(even) {
+  background-color: #FFFFFF;
+}
+
+.client-table tr:hover {
+  background-color: #ddd;
+}
+
+/* Set maximum width for specific columns */
+.client-table td:nth-child(1), th:nth-child(1) { /* First column */
+  max-width: 20px; /* Adjust as needed */
+}
+
+.client-table td:nth-child(2), th:nth-child(2) { 
+  max-width: 20px; 
+} 
+
+.client-table td:nth-child(3), th:nth-child(3) { /* Third column */
+  max-width: 20px; /* Adjust as needed */
+}
+
+.client-table td:nth-child(4), th:nth-child(4) { 
+  max-width: 20px; 
+}
+
+.client-table td:nth-child(5), th:nth-child(5) { 
+  max-width: 20px; 
+}
+
+.client-table td:nth-child(6), th:nth-child(6) { 
+  max-width: 30px; 
+}

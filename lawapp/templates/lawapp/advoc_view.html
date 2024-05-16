@@ -1,0 +1,183 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LawConnect - Connect with Advocates</title>
+  <link rel="stylesheet" href="{% static 'css/advocate2.css' %}">
+</head>
+<body>
+
+  {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            {{ message }}
+        </div>
+    {% endfor %}
+  {% endif %}
+
+  
+  <header>
+    <div class="logo">
+      <img src="{% static 'images/legal_scales_logo.png' %}" alt="LawConnect Logo">
+    </div>
+    <nav>
+      <ul>
+          <li><a href="{% url 'client_dash' %}">Home</a></li>
+          <li><a href="{% url 'advoc_list' %}">Advocate Listing</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropbtn">+ Cases</a>
+            <div class="dropdown-content">
+              <a href="{% url 'client_mycases' %}">My Cases</a>
+              <a href="{% url 'sent_requests' %}">Sent Requests</a>
+            </div>
+          </li>
+          <li><a href="{% url 'client_appts' %}">Appointments</a></li>
+          <li><a href="{% url 'client_bills' %}">My Bills</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropbtn">Account</a>
+            <div class="dropdown-content">
+              <a href="{% url 'client_profile' %}">My Profile</a>
+              <a href="{% url 'logout' %}">Logout</a>
+            </div>
+          </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="advocview" id="advocview-section">
+    <div class="advocate-container">
+
+      <div class="profile-column">
+        <h2>{{ advocate_details.first_name }} {{ advocate_details.last_name }}</h2>
+        <div class="advocate-profile">
+            <div class="profile-picture">
+              {% if advocate_profile.profile_pic %}
+                  <img src="{{ advocate_profile.profile_pic.url }}" alt="Profile Picture">
+              {% else %}
+                  <img src="{% static 'images/default_avatar.png' %}" alt="Default Avatar">
+              {% endif %}
+            </div>
+            <div class="profile-info">
+
+              <p><strong>Category:</strong> {{ advocate_details.get_category_display }}</p>
+              <p><strong>Law Firm:</strong> {{ advocate_details.law_firm }}</p>
+              <p><strong>County:</strong> {{ advocate_details.county }}</p>
+              <p><strong>Gender:</strong> {{ advocate_details.get_gender_display }}</p>
+              <p><strong>Phone Number:</strong> {{ advocate_details.phone_number }}</p>
+              <p><strong>Address:</strong> {{ advocate_details.address }}</p>
+              <p><strong>Postal Address:</strong> {{ advocate_details.postal_address }}</p>
+              <p><strong>Experience [Years]:</strong> {{ advocate_details.experience }}</p>
+              <p><strong>Bio:</strong> {{ advocate_details.bio }}</p>
+
+        
+            </div>
+        </div>
+      </div>
+      <div class="form-column">
+          <h2>Representation Request:</h2>
+          <div class="request-content">
+
+            <form id="request-form" class="request-form" method="POST" action="{% url 'advoc_view' advocate_id=advocate_details.user.id %}">
+              {% csrf_token %}
+              <input type="hidden" name="request_id" value="{{ request_id }}">
+              {{ form.as_p }}
+              <button type="submit" name="request-submit">Submit Request</button>
+            </form>
+          </div>  
+      </div>
+    </div>
+
+
+
+    <div class="review-section">
+      
+      <div class= "review-content">
+        <h2>Post Review:</h2>
+        <form id="review-form" class="review-form" method="POST" action="{% url 'advoc_view' advocate_id=advocate_details.user.id %}">
+          {% csrf_token %}
+          {{ review_form.as_p }}
+          <button type="submit" name="review-submit">Submit Review</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="update-profiles">
+      <h2>Reviews</h2>
+      {% if reviews %}
+          {% for review in reviews %}
+          <div class="update-box">
+            <div class="update-details">
+                <h3>{{ review.rating }} STARS</h3>
+                <p><strong>Comment:</strong> {{ review.comment }}</p>
+                <p><strong>By:</strong> {{ review.client }}</p>
+                <p><strong>Date posted:</strong> {{ review.date_created }}</p>
+            </div>
+
+          </div>
+          {% endfor %}
+      {% else %}
+          <p>No reviews yet for this advocate.</p>
+      {% endif %}
+    </div>
+    
+  </section>
+
+  <footer>
+    <div class="footer-columns">
+      <div class="footer-column">
+        <h3>For Clients</h3>
+        <ul>
+          <li><a href="#">Hire an Advocate</a></li>
+          <li><a href="#">Post a Job</a></li>
+          <li><a href="#">Login to Account</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-column">
+        <h3>For Advocates</h3>
+        <ul>
+          <li><a href="#">Apply for Job</a></li>
+          <li><a href="#">Login to Account</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-column">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Help and Support</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-column">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+   
+    <p>© 2024 LawConnect. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Get all elements with the class "closebtn"
+    var closeButtons = document.getElementsByClassName("closebtn");
+  
+    // Loop through all close buttons
+    for (var i = 0; i < closeButtons.length; i++) {
+        // Add click event listener to each close button
+        closeButtons[i].addEventListener("click", function() {
+            // Hide the parent element of the close button
+            this.parentElement.style.display = 'none';
+        });
+    }
+  </script>
+  
+</body>
+</html>
+
+

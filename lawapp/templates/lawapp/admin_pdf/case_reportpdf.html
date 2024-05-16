@@ -1,0 +1,114 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Case Report</title>
+  <style>
+    body {
+      font-family: 'Times New Roman', Times, serif;
+    }
+
+    case-table {
+      width: 60%;
+      border-collapse: collapse;
+    }
+
+    .case-description {
+        white-space: pre-line; /* Preserve line breaks */
+        overflow-wrap: break-word; /* Wrap long lines */
+      }
+      
+      .case-table th, .case-table td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid black;
+      }
+      
+      .case-table th {
+        width: 30%;
+        color:#FFFFFF;
+        font-weight: bold;
+        font-size: 14px;
+        background-color: #8B0000;
+      }
+      
+      .case-table td {
+        
+        font-size: 14px;
+        
+      }
+      
+      .case-table tr {
+        height: 50px; /* Set the height of each row */
+      }
+      
+      .case-table th:first-child,
+      .case-table td:first-child {
+        text-align: right;
+      }
+
+    .logo {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 20px;
+    }
+
+   
+  </style>
+</head>
+<body>
+  <img class="logo" src="{% static 'images/legal_scales_logo.png' %}" alt="Logo" style="width: 150px; height: auto;">
+
+  <h2 style="text-align: center;">Case Report</h2>
+    <!-- Display current date -->
+  <p style="text-align: right; font-weight: bold;">Date: {{ date }}</p>
+  <div>
+  <table class="case-table">
+    <tbody>
+        <tr>
+            <th>Case Name</th>
+            <td>{{ case.case_name }}</td>
+        </tr>
+        <tr>
+            <th>Case Number</th>
+            <td>{{ case.case_number }}</td>
+        </tr>
+        <tr>
+            <th>Advocate</th>
+            <td>{{ case.advocate.username }}</td>
+        </tr>
+        <tr>
+            <th>Client</th>
+            <td>{{ case.client.username|default:"N/A" }}</td>
+        </tr>
+        <tr>
+            <th>Client Role</th>
+            <td>{{ case.client_role|capfirst }}</td>
+        </tr>
+        <tr>
+            <th>Date Launched</th>
+            <td>{{ case.date_launched }}</td>
+        </tr>
+        <tr>
+            <th>Case Description</th>
+            <td>
+              <div class="case-description">{{ case.case_description }}</div>
+          </td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td>{% if case.open_status %}Open{% else %}Closed{% endif %}</td>
+        </tr>
+        <tr>
+            <th>Date Closed</th>
+            <td>{{ case.date_closed|default:"N/A" }}</td>
+        </tr>
+    </tbody>
+  </table>
+
+</body>
+</html>

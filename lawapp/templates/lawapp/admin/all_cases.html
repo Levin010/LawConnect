@@ -1,0 +1,140 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LawConnect - Connect with Advocates</title>
+  <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+
+</head>
+<body>
+
+    {% if messages %}
+      {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">
+              <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+              {{ message }}
+          </div>
+      {% endfor %}
+    {% endif %}
+
+  <header>
+    <div class="logo">
+      <img src="{% static 'images/legal_scales_logo.png' %}" alt="LawConnect Logo">
+    </div>
+    <nav>
+      <ul>
+          <li><a href="{% url 'admin_dash' %}">Home</a></li>
+          <li><a href="{% url 'all_cases' %}">Cases</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropbtn">+ Users</a>
+            <div class="dropdown-content">
+              <a href="{% url 'advocates' %}">Advocates</a>
+              <a href="{% url 'clients' %}">Clients</a>
+            </div>
+          </li>
+          <li><a href="{% url 'bills' %}">Bills</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropbtn">Account</a>
+            <div class="dropdown-content">
+              <a href="{% url 'admin_dash' %}">My Profile</a>
+              <a href="{% url 'logout' %}">Logout</a>
+            </div>
+          </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="advocates-table">
+    <div class="advoc-table">
+        <h1>Cases</h1>
+        <form id="pdf-advoc-form" action="{% url 'all_cases_pdf' %}" method="post">
+            {% csrf_token %}
+            
+            <button class="pdf-button" type="submit">Download PDF</button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>Case Name</th>
+                    <th>Case Number</th>
+                    <th>Advocate</th>
+                    <th>Client</th>
+                    <th>Date Launched</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for case in cases %}
+                <tr>
+                    <td><a href="{% url 'case_report' case.id %}" class="case-name">{{ case.case_name }}</a></td>
+                    <td>{{ case.case_number }}</td>
+                    <td>{{ case.advocate }}</td>
+                    <td>{{ case.client }}</td>
+                    <td>{{ case.date_launched }}</td>
+                    <td>{% if case.open_status %}Open{% else %}Closed{% endif %}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+    </div>
+
+    
+  </section>
+
+  <footer>
+    <div class="footer-columns">
+      <div class="footer-column">
+        <h3>For Clients</h3>
+        <ul>
+          <li><a href="#">Hire an Advocate</a></li>
+          <li><a href="#">Post a Job</a></li>
+          <li><a href="#">Login to Account</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-column">
+        <h3>For Advocates</h3>
+        <ul>
+          <li><a href="#">Apply for Job</a></li>
+          <li><a href="#">Login to Account</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-column">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Help and Support</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-column">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+   
+    <p>© 2024 LawConnect. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Get all elements with the class "closebtn"
+    var closeButtons = document.getElementsByClassName("closebtn");
+  
+    // Loop through all close buttons
+    for (var i = 0; i < closeButtons.length; i++) {
+        // Add click event listener to each close button
+        closeButtons[i].addEventListener("click", function() {
+            // Hide the parent element of the close button
+            this.parentElement.style.display = 'none';
+        });
+    }
+  </script>
+
+</body>
+</html>

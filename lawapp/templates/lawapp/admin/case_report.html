@@ -1,0 +1,158 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LawConnect - Connect with Advocates</title>
+  <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+</head>
+<body>
+
+    {% if messages %}
+      {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">
+              <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+              {{ message }}
+          </div>
+      {% endfor %}
+    {% endif %}
+
+  <header>
+    <div class="logo">
+      <img src="{% static 'images/legal_scales_logo.png' %}" alt="LawConnect Logo">
+    </div>
+    <nav>
+      <ul>
+          <li><a href="{% url 'admin_dash' %}">Home</a></li>
+          <li><a href="{% url 'all_cases' %}">Cases</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropbtn">+ Users</a>
+            <div class="dropdown-content">
+              <a href="{% url 'advocates' %}">Advocates</a>
+              <a href="{% url 'clients' %}">Clients</a>
+            </div>
+          </li>
+          <li><a href="{% url 'bills' %}">Bills</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropbtn">Account</a>
+            <div class="dropdown-content">
+              <a href="{% url 'admin_dash' %}">My Profile</a>
+              <a href="{% url 'logout' %}">Logout</a>
+            </div>
+          </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="case-report">
+    <div class="case-report-content">
+        <h1>Case Report</h1>
+        <div class="pdf-button-container">
+          <form id="pdf-advoc-form" action="{% url 'gen_case_report' case_id=case.id %}" method="post">
+              {% csrf_token %}
+              <button class="pdf-button" type="submit">Download PDF</button>
+          </form>
+        </div>
+        <table class="case-table">
+          <tbody>
+              <tr>
+                  <th>Case Name</th>
+                  <td>{{ case.case_name }}</td>
+              </tr>
+              <tr>
+                  <th>Case Number</th>
+                  <td>{{ case.case_number }}</td>
+              </tr>
+              <tr>
+                  <th>Advocate</th>
+                  <td>{{ case.advocate.username }}</td>
+              </tr>
+              <tr>
+                  <th>Client</th>
+                  <td>{{ case.client.username|default:"N/A" }}</td>
+              </tr>
+              <tr>
+                  <th>Client Role</th>
+                  <td>{{ case.client_role|capfirst }}</td>
+              </tr>
+              <tr>
+                  <th>Date Launched</th>
+                  <td>{{ case.date_launched }}</td>
+              </tr>
+              <tr>
+                  <th>Case Description</th>
+                  <td>
+                    <div class="case-description">{{ case.case_description }}</div>
+                </td>
+              </tr>
+              <tr>
+                  <th>Status</th>
+                  <td>{% if case.open_status %}Open{% else %}Closed{% endif %}</td>
+              </tr>
+              <tr>
+                  <th>Date Closed</th>
+                  <td>{{ case.date_closed|default:"N/A" }}</td>
+              </tr>
+          </tbody>
+        </table>
+        
+    </div>
+
+    
+  </section>
+
+  <footer>
+    <div class="footer-columns">
+      <div class="footer-column">
+        <h3>For Clients</h3>
+        <ul>
+          <li><a href="#">Hire an Advocate</a></li>
+          <li><a href="#">Post a Job</a></li>
+          <li><a href="#">Login to Account</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-column">
+        <h3>For Advocates</h3>
+        <ul>
+          <li><a href="#">Apply for Job</a></li>
+          <li><a href="#">Login to Account</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-column">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Help and Support</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-column">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+   
+    <p>© 2024 LawConnect. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Get all elements with the class "closebtn"
+    var closeButtons = document.getElementsByClassName("closebtn");
+  
+    // Loop through all close buttons
+    for (var i = 0; i < closeButtons.length; i++) {
+        // Add click event listener to each close button
+        closeButtons[i].addEventListener("click", function() {
+            // Hide the parent element of the close button
+            this.parentElement.style.display = 'none';
+        });
+    }
+  </script>
+
+</body>
+</html>

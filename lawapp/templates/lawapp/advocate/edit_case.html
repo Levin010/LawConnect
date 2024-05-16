@@ -1,0 +1,116 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LawConnect - Connect with Advocates</title>
+  <link rel="stylesheet" href="{% static 'css/advocate.css' %}">
+</head>
+<body>
+
+  {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            {{ message }}
+        </div>
+    {% endfor %}
+  {% endif %}
+
+  <header>
+    <div class="logo">
+      <img src="{% static 'images/legal_scales_logo.png' %}" alt="LawConnect Logo">
+    </div>
+    <nav>
+      <ul>
+          <li><a href="{% url 'advoc_dash' %}">Home</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropbtn">+ Cases</a>
+            <div class="dropdown-content">
+              <a href="{% url 'advoc_mycases' %}">My Cases</a>
+              <a href="{% url 'received_requests' %}">Received Requests</a>
+              <a href="{% url 'newnew_case' %}">New Case</a>
+            </div>
+          </li>
+          <li><a href="{% url 'advoc_appts' %}">Appointments</a></li>
+          <li><a href="{% url 'advoc_bills' %}">Client Bills</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropbtn">Account</a>
+            <div class="dropdown-content">
+              <a href="{% url 'advoc_profile' %}">My Profile</a>
+              <a href="{% url 'logout' %}">Logout</a>
+            </div>
+          </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="edit-case-section">
+    <div class="edit-case-content">
+      <h1>Edit Case</h1>
+  
+      <form id="edit-case-form" class="edit-case-form" action="{% url 'edit_case' case_id=case.id %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+  
+        <button type="submit" name="edit-case-form-submit">Submit</button>
+      </form>
+      
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-columns">
+      <div class="footer-column">
+        <h3>For Clients</h3>
+        <ul>
+          <li><a href="#">Hire an Advocate</a></li>
+          <li><a href="#">Post a Job</a></li>
+          <li><a href="#">Login to Account</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-column">
+        <h3>For Advocates</h3>
+        <ul>
+          <li><a href="#">Apply for Job</a></li>
+          <li><a href="#">Login to Account</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-column">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Help and Support</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-column">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+   
+    <p>© 2024 LawConnect. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Get all elements with the class "closebtn"
+    var closeButtons = document.getElementsByClassName("closebtn");
+  
+    // Loop through all close buttons
+    for (var i = 0; i < closeButtons.length; i++) {
+        // Add click event listener to each close button
+        closeButtons[i].addEventListener("click", function() {
+            // Hide the parent element of the close button
+            this.parentElement.style.display = 'none';
+        });
+    }
+  </script>
+
+</body>
+</html>

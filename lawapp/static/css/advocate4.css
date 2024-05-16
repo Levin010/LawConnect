@@ -1,0 +1,542 @@
+/* header, footer, new_case , set_appointment*/
+body {
+    margin: 0;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+header {
+    background-color: #8B0000;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+  
+.logo img {
+    width: 200px;
+    height: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+  
+.logo h1 {
+    margin-left: 10px;
+    font-size: 24px;
+    font-weight: bold;
+}
+  
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+  
+nav ul li {
+    margin-left: 20px;
+}
+  
+nav ul li a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px;
+}
+  
+header nav ul li a:hover {
+    text-decoration: underline;
+    font-size: 1.1em;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #8B0000;
+  min-width: 160px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #8B0000;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+  right:0;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #8B0000;
+}
+  
+  
+  
+footer {
+
+    background-color: #8B0000;
+    padding: 20px;
+    text-align: center;
+}
+  
+footer p {
+
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 18px;
+}
+  
+.footer-columns {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    text-align: left;
+}
+  
+.footer-columns::after {
+    content: '';
+    flex: 1; 
+}
+  
+.footer-column {
+    width: calc(25% - 20px); 
+    margin-right: 20px;
+    display: inline-block;
+    vertical-align: top; 
+}
+  
+.footer-column h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    text-align: left;
+    text-decoration: underline;
+}
+  
+.footer-column ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+  
+.footer-column ul li {
+    margin-bottom: 5px;
+}
+  
+.footer-column ul li a {
+    color: #FFFFFF;
+    text-decoration: none;
+    display: block;
+    font-size: 18px;
+}
+  
+.footer-column ul li a:hover {
+
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+
+/* alert messages*/
+
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+  
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+  
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+  
+.closebtn {
+  float: right;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+  
+.closebtn:hover {
+  color: black;
+}
+  
+
+/* new_case.html */
+
+.edit-case {
+    display: flex;
+}
+
+.left-side {
+    flex: 1;
+    border-right: 3px solid #000000;
+    padding-right: 20px;
+    margin-right: 20px;
+}
+
+.right-side {
+    flex: 1;
+    padding-left: 20px;
+}
+
+.request-section {
+    border: 3px solid #000000;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+/* right side Edit_case.html */
+
+.edit-case-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #FFFFFF;
+}
+
+.right-side-content {
+  background-color: #8B0000;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  width: 400px;   /* Adjust the value as per your preference */
+  min-width: 60px;
+  margin: 0 auto;     /* Center the login-content horizontally */
+}
+
+.right-side-content h1 {
+  font-size: 34px;
+  color: #FFFFFF;
+
+}
+
+.newnew-case-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #FFFFFF;
+}
+
+.newnew-case-content {
+  background-color: #8B0000;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  width: 400px;   /* Adjust the value as per your preference */
+  min-width: 60px;
+  margin: 0 auto;     /* Center the login-content horizontally */
+}
+
+.newnew-case-content h1 {
+  font-size: 34px;
+  color: #FFFFFF;
+
+}
+
+.newnew-case-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.newnew-case-form label {
+  color: white;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.newnew-case-form input[type="text"] {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #f1f1f1;
+}
+
+.newnew-case-form input[type="text"]::placeholder {
+  color: #000000;  /* Placeholder text color */
+}
+
+.newnew-case-form input[type="text"]:focus {
+  outline: none;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+.newnew-case-form button {
+  padding: 10px 20px;
+  background-color: #000000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.newnew-case-form button:hover {
+  background-color: #4d4747;
+}
+
+
+/* New_case.html */
+
+.new-case-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.new-case-form label {
+  color: black;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.new-case-form input[type="text"] {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #f1f1f1;
+}
+
+.new-case-form input[type="text"]::placeholder {
+  color: #000000;  /* Placeholder text color */
+}
+
+.new-case-form input[type="text"]:focus {
+  outline: none;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+.new-case-form button {
+  padding: 10px 20px;
+  background-color: #000000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.new-case-form button:hover {
+  background-color: #4d4747;
+}
+
+
+/*set_appointment*/
+
+section.editprofile-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 140px);
+    background-color: #FFFFFF;
+  }
+  
+  .editprofile-content {
+    background-color: #8B0000;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 400px; 
+    margin: 50px;
+  }
+  
+  .editprofile-content h1 {
+    color: #FFFFFF;
+    font-size: 34px;
+  }
+  
+  .editprofile-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 80%;
+  }
+  
+  .editprofile-form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #FFFFFF;
+  }
+  
+  .editprofile-form input[type="file"],
+  .editprofile-form input[type="text"],
+  .editprofile-form input[type="tel"],
+  .editprofile-form select {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #f1f1f1;
+  }
+  
+  .editprofile-form button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .editprofile-form button:hover {
+    background-color: #4d4747;
+  }
+
+
+  /* Mpesa.html */
+
+  .mpesa-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #FFFFFF;
+  }
+  
+  .mpesa-content {
+    background-color: #8B0000;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 400px;   /* Adjust the value as per your preference */
+    min-width: 60px;
+    margin: 0 auto;     /* Center the login-content horizontally */
+  }
+  
+  .mpesa-content h1 {
+    font-size: 34px;
+    color: #FFFFFF;
+  
+  }
+  
+  .mpesa-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .mpesa-form input[type="text"] {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+  }
+  
+  .mpesa-form input[type="text"]::placeholder {
+    color: #000000;  /* Placeholder text color */
+  }
+  
+  .mpesa-form input[type="text"]:focus {
+    outline: none;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .mpesa-form button {
+    padding: 10px 20px;
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .mpesa-form button:hover {
+    background-color: #4d4747;
+  }
+
+
+/* Make_appt */
+
+.appt-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #FFFFFF;
+}
+
+.appt-content {
+  background-color: #8B0000;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  width: 400px;   /* Adjust the value as per your preference */
+  min-width: 60px;
+  margin: 0 auto;     /* Center the login-content horizontally */
+}
+
+.appt-section h1 {
+  font-size: 34px;
+  color: #000000;
+  margin-left: 20px;
+  text-decoration: underline;
+}
+
+.appt-content h1 {
+  font-size: 34px;
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.appt-form {
+  display: flex;
+  flex-direction: column;
+  color: #FFFFFF;
+}
+
+.appt-form input[type="text"],
+.appt-form input[type="password"] {
+  padding: 10px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #f1f1f1;
+}
+
+.appt-form input[type="text"]::placeholder,
+.appt-form input[type="password"]::placeholder {
+  color: #000000;  /* Placeholder text color */
+}
+
+.appt-form input[type="text"]:focus,
+.appt-form input[type="password"]:focus {
+  outline: none;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+.appt-form button {
+  padding: 10px 20px;
+  background-color: #000000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.appt-form button:hover {
+  background-color: #4d4747;
+}

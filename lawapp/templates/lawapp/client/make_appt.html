@@ -1,0 +1,132 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LawConnect - Connect with Advocates</title>
+  <link rel="stylesheet" href="{% static 'css/advocate4.css' %}">
+</head>
+<body>
+
+  {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            {{ message }}
+        </div>
+    {% endfor %}
+  {% endif %}
+
+
+  <header>
+    <div class="logo">
+      <img src="{% static 'images/legal_scales_logo.png' %}" alt="LawConnect Logo">
+    </div>
+    <nav>
+      <ul>
+          <li><a href="{% url 'client_dash' %}">Home</a></li>
+          <li><a href="{% url 'advoc_list' %}">Advocate Listing</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropbtn">+ Cases</a>
+            <div class="dropdown-content">
+              <a href="{% url 'client_mycases' %}">My Cases</a>
+              <a href="{% url 'sent_requests' %}">Sent Requests</a>
+            </div>
+          </li>
+          <li><a href="{% url 'client_appts' %}">Appointments</a></li>
+          <li><a href="{% url 'client_bills' %}">My Bills</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropbtn">Account</a>
+            <div class="dropdown-content">
+              <a href="{% url 'client_profile' %}">My Profile</a>
+              <a href="{% url 'logout' %}">Logout</a>
+            </div>
+          </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="appt-section">
+    <h1>Book an Appointment with {{ advocate_details.first_name }} {{ advocate_details.last_name }} :</h1>
+    <div class="appt-content">
+
+        <h1>New Appointment</h1>
+  
+        <form id="appt-form" class="appt-form" action="{% url 'make_appt' advocate_id=advocate_details.user.id%}" method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="appointment" value="{{ appointment_id }}">
+          {{ form.as_p }}
+
+          {% if form.errors %}
+            <div class="alert alert-danger">
+              <ul>
+                {% for field in form %}
+                  {% for error in field.errors %}
+                    <li>{{ error }}</li>
+                  {% endfor %}
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
+
+          <button type="submit" name="login-form-submit">Submit</button>
+        </form>
+      
+    </div>
+  </section>
+
+
+  <footer>
+    <div class="footer-columns">
+      <div class="footer-column">
+        <h3>For Clients</h3>
+        <ul>
+          <li><a href="{% url 'client_dash' %}">Hire an Advocate</a></li>
+          <li><a href="{% url 'login' %}">Login to Account</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-column">
+        <h3>For Advocates</h3>
+        <ul>
+          <li><a href="{% url 'login' %}">Login to Account</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-column">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Help and Support</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-column">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+   
+    <p>© 2024 LawConnect. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Get all elements with the class "closebtn"
+    var closeButtons = document.getElementsByClassName("closebtn");
+  
+    // Loop through all close buttons
+    for (var i = 0; i < closeButtons.length; i++) {
+        // Add click event listener to each close button
+        closeButtons[i].addEventListener("click", function() {
+            // Hide the parent element of the close button
+            this.parentElement.style.display = 'none';
+        });
+    }
+  </script>
+
+</body>
+</html>
+

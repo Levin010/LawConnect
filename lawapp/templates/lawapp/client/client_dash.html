@@ -1,0 +1,210 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LawConnect - Connect with Advocates</title>
+  <link rel="stylesheet" href="{% static 'css/advocate.css' %}">
+</head>
+<body>
+
+  {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            {{ message }}
+        </div>
+    {% endfor %}
+  {% endif %}
+
+
+  <header>
+    <div class="logo">
+      <img src="{% static 'images/legal_scales_logo.png' %}" alt="LawConnect Logo">
+    </div>
+    <nav>
+      <ul>
+          <li><a href="{% url 'client_dash' %}">Home</a></li>
+          <li><a href="{% url 'advoc_list' %}">Advocate Listing</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropbtn">+ Cases</a>
+            <div class="dropdown-content">
+              <a href="{% url 'client_mycases' %}">My Cases</a>
+              <a href="{% url 'sent_requests' %}">Sent Requests</a>
+            </div>
+          </li>
+          <li><a href="{% url 'client_appts' %}">Appointments</a></li>
+          <li><a href="{% url 'client_bills' %}">My Bills</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropbtn">Account</a>
+            <div class="dropdown-content">
+              <a href="{% url 'client_profile' %}">My Profile</a>
+              <a href="{% url 'logout' %}">Logout</a>
+            </div>
+          </li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="client_dash">
+    <div class="client_dash-content">
+      <h2>LawConnect for Clients</h2>
+      <p>Connecting clients with qualified advocates for legal assistance.</p>
+      <a href="{% url 'advoc_list' %}" class="client_dash-button">Hire an Advocate</a>
+    </div>
+  </section>
+
+  <section class="how-it-works">
+    <div class="steps-container">
+        <h2>How It Works</h2>
+        <div class="steps">
+            <div class="step">
+                <h3>+ Create Account</h3>
+                <p>Create a free account to access all features. If looking for a lawyer, create a client account. If you're a certified advocate looking for clients, create an advocate account.</p>
+            </div>
+            <div class="step">
+                <h3>+ Book Appointments</h3>
+                <p>Client users can schedule appointments with advocates on the platform. Advocate users can set their appointment times based on their availability.</p>
+            </div>
+            <div class="step">
+                <h3>+ Launch Case</h3>
+                <p>Client users can request an advocate to represent them by sending a representation request. Once the advocate approves the request, they will be able to open the case and relay case updates to the client on the platform.</p>
+            </div>
+        </div>
+    </div>
+  </section>
+
+  <section class="categories">
+
+    <div class="categories-slider">
+      <h2>Categories</h2>
+      <div class="slider-container">
+          <div class="category-column">
+              <h3>General Practice</h3>
+              <button class="view-button">View</button>
+          </div>
+          <div class="category-column">
+              <h3>Corporate Law</h3>
+              <button class="view-button">View</button>
+          </div>
+          <div class="category-column">
+              <h3>Criminal Defense</h3>
+              <button class="view-button">View</button>
+          </div>
+          <div class="category-column">
+              <h3>Immigration Law</h3>
+              <button class="view-button">View</button>
+          </div>
+          <div class="category-column">
+              <h3>Family Law</h3>
+              <button class="view-button">View</button>
+          </div>
+          <div class="category-column">
+              <h3>Family Law</h3>
+              <button class="view-button">View</button>
+          </div>
+          <div class="category-column">
+              <h3>Environment Law</h3>
+              <button class="view-button">View</button>
+          </div>
+          <div class="category-column">
+              <h3>Environment Law</h3>
+              <button class="view-button">View</button>
+          </div>
+      </div>
+      <button class="prev-button">&lt;</button>
+      <button class="next-button">&gt;</button>
+    </div>
+  
+
+  </section>
+
+  <footer>
+    <div class="footer-columns">
+      <div class="footer-column">
+        <h3>For Clients</h3>
+        <ul>
+          <li><a href="{% url 'client_dash' %}">Hire an Advocate</a></li>
+          <li><a href="{% url 'login' %}">Login to Account</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-column">
+        <h3>For Advocates</h3>
+        <ul>
+          <li><a href="{% url 'login' %}">Login to Account</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-column">
+        <h3>Resources</h3>
+        <ul>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Help and Support</a></li>
+        </ul>
+      </div>
+  
+      <div class="footer-column">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+    </div>
+   
+    <p>© 2024 LawConnect. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Get all elements with the class "closebtn"
+    var closeButtons = document.getElementsByClassName("closebtn");
+  
+    // Loop through all close buttons
+    for (var i = 0; i < closeButtons.length; i++) {
+        // Add click event listener to each close button
+        closeButtons[i].addEventListener("click", function() {
+            // Hide the parent element of the close button
+            this.parentElement.style.display = 'none';
+        });
+    }
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Code inside this function will be executed when the DOM is fully loaded
+  
+      // Selecting elements from the HTML document
+      const container = document.querySelector('.slider-container');
+      const prevButton = document.querySelector('.prev-button');
+      const nextButton = document.querySelector('.next-button');
+  
+      // Initializing a variable to keep track of the current index
+      let currentIndex = 0;
+  
+      // Adding event listeners to the next and previous buttons
+      nextButton.addEventListener('click', function () {
+          if (currentIndex < container.children.length - 3) {
+              currentIndex++;
+              updateSlider();
+          }
+      });
+  
+      prevButton.addEventListener('click', function () {
+          if (currentIndex > 0) {
+              currentIndex--;
+              updateSlider();
+          }
+      });
+  
+      // Function to update the slider based on the current index
+      function updateSlider() {
+          container.style.transform = `translateX(-${currentIndex * (33.33 + 20)}%)`;
+      }
+    });
+  
+  </script>
+
+</body>
+</html>
+

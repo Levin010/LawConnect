@@ -1,0 +1,629 @@
+/*body, header, footer, advoc/client_casedetails.html, sent/received_requests */
+
+body {
+    margin: 0;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  
+  header {
+    background-color: #8B0000;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .logo img {
+    width: 200px;
+    height: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .logo h1 {
+    margin-left: 10px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  
+  nav ul li {
+    margin-left: 20px;
+  }
+  
+  nav ul li a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px;
+  }
+  
+  header nav ul li a:hover {
+    text-decoration: underline;
+    font-size: 1.1em;
+  }
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #8B0000;
+    min-width: 160px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #8B0000;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+    right:0;
+  }
+  
+  .dropdown:hover .dropbtn {
+    background-color: #8B0000;
+  }
+  
+  section.hero {
+    height: 50vh; /* Set the height to 100% of the viewport height */
+    padding: 40px;
+    text-align: center;
+    background-image: url('/static/images/background_1.png');
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+  }
+  
+  .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .hero-content h2 {
+    color: #FFFFFF;
+    font-size: 34px;
+  }
+  
+  .hero-content p {
+    color: #FFFFFF;
+    font-size: 20px;
+  }
+  
+  .cta-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    cursor: pointer;
+  }
+  
+  .cta-button:hover {
+    background-color: #555;
+  }
+  
+  h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  footer {
+    background-color: #8B0000;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  footer p {
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 18px;
+  }
+  
+  .footer-columns {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    text-align: left;
+  }
+  
+  .footer-columns::after {
+    content: '';
+    flex: 1; 
+  }
+  
+  .footer-column {
+    width: calc(25% - 20px); 
+    margin-right: 20px;
+    display: inline-block;
+    vertical-align: top; 
+  }
+  
+  .footer-column h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    text-align: left;
+    text-decoration: underline;
+  }
+  
+  .footer-column ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .footer-column ul li {
+    margin-bottom: 5px;
+  }
+  
+  .footer-column ul li a {
+    color: #FFFFFF;
+    text-decoration: none;
+    display: block;
+    font-size: 18px;
+  }
+  
+  .footer-column ul li a:hover {
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 1.1em;
+  }
+
+/*advoc_casedetails.html */
+
+#case_details-section {
+    min-height: calc(100vh - 140px);
+    background-color: #FFFFFF;
+    
+}
+
+.case-container {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 40px;
+
+}
+
+.case-container h2 {
+  color: #000000;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.case-column {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.advocate-profile {
+  flex: 1;
+  align-items: center;
+  max-width: 600px; /* Adjust the maximum width as needed */
+  margin-top: 20px;
+}
+
+.update_form-column {
+    flex: 1;
+}
+  
+.update_form-column h2 {
+
+    color: #000000;
+    font-size: 32px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+  
+.update-content {
+    background-color: #8B0000;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 400px;   /* Adjust the value as per your preference */
+    min-width: 60px;
+    margin: 0 auto;     /* Center the login-content horizontally */
+    border: 1px solid #333;
+}
+  
+.update-form {
+    display: flex;
+    flex-direction: column;
+    
+}
+  
+.update-form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #FFFFFF;
+}
+  
+.update-form input[type="text"],
+.update-form textarea {
+
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+}
+
+.update-form input[type="text"]:focus,
+.update-form textarea:focus {
+  outline: none;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+.update-form input[type="radio"] {
+  margin-right: 5px;
+}
+
+.update-form label {
+  font-weight: bold;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.update-form button {
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.update-form button:hover {
+  background-color: #4d4747;
+}
+
+/* case updates, advoc_casedetails*/
+.update-profiles {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  margin-left: 20px;
+}
+
+.update-profiles h2 {
+  color: #000000;
+  font-size: 34px;
+  margin-bottom: 20px;
+}
+
+.update-profiles h3 {
+  color: #000000;
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-decoration: underline;
+}
+
+.update-box {
+  display: flex;
+  justify-content: space-between;/*flex-start*/
+  align-items: left;
+  flex-wrap: wrap;
+  flex-basis: 100%;
+  background-color: #f9f9f9;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.update-details {
+  flex: 1;
+  padding-right: 10px;
+}
+
+.update-details h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.edit-button,
+.delete-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+
+.edit-button {
+  background-color: #000000;
+  color: white;
+}
+
+.delete-button {
+  background-color: #8B0000;
+  color: white;
+  margin-top: 5px;
+}
+
+.edit-button:hover {
+  background-color: #000000;
+  text-decoration: underline;
+  font-size: 1.1em;
+}
+
+.delete-button:hover {
+  background-color: #8B0000;
+  text-decoration: underline;
+  font-size: 1.1em;
+}
+
+.case-controls {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 10px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.control-button {
+  padding: 8px 12px;
+  margin-right: 10px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.edit-case {
+  background-color: black;
+  color: white;
+}
+
+.bill-client {
+  background-color: green;
+  color: white;
+  font-size: 17px;
+}
+
+.close-case {
+  background-color: #8B0000;
+  color: white;
+  font-size: 17px;
+}
+
+.reopen-case {
+  background-color: #333;
+  color: white;
+  font-size: 17px;
+}
+
+.bill-client:hover,
+.edit-case:hover,
+.close-case:hover,
+.edit-case:hover {
+  text-decoration: underline;
+  font-size: 1.1em;
+}
+
+
+
+/* client_casedetails.html */
+
+.documents {
+  flex: 1;
+  margin: 10px;
+  border: 3px solid #000000;
+  border-radius: 5px;
+  overflow-y: auto;
+  max-height: 300px; /* Adjust as needed */
+}
+
+
+.documents h2 {
+  margin-top: 0;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #000000;
+}
+
+.documents ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.documents ul li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.documents ul li:last-child {
+  border-bottom: none;
+}
+
+
+
+/* sent/received_requests.html */
+
+section.requests {
+  
+  min-height: calc(100vh - 140px);
+  background-color: #FFFFFF;
+}
+
+.request-profiles {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.request-profiles h2 {
+  color: #000000;
+  font-size: 34px;
+  margin-bottom: 20px;
+}
+
+.request-box {
+  display: flex;
+  justify-content: space-between;/*flex-start*/
+  align-items: left;
+  flex-wrap: wrap;
+  flex-basis: 100%;
+  background-color: #f9f9f9;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.request-details {
+  flex: 1;
+  padding-right: 10px;
+}
+
+.request-details h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.launch-button,
+.reject-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.accepted-button,
+.rejected-button,
+.pending-button,
+.cancelled-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.accepted-button {
+  background-color: green;
+  color: white;
+}
+
+.rejected-button {
+  background-color: red;
+  color: white;
+}
+
+.cancelled-button {
+  background-color: white;
+  color: #8B0000;
+  border: 2px;
+  border-color: #8B0000;
+  text-decoration: double;
+}
+
+.pending-button {
+  background-color: #3B3B3B;
+  color: white;
+}
+
+.launch-button {
+  background-color: #4caf50;
+  color: white;
+}
+
+.reject-button {
+  background-color: #f44336;
+  color: white;
+  margin-top: 5px;
+}
+
+.launch-button:hover {
+  background-color: darken(#4caf50, 10%);
+  text-decoration: underline;
+  font-size: 1.1em;
+}
+
+.reject-button:hover {
+  background-color: #D2042D;
+  text-decoration: underline;
+  font-size: 1.1em;
+}
+
+
+
+/* messages*/
+
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+.closebtn {
+  float: right;
+  font-weight: bold;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+} 
