@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-=414udup!mjeamm%r0ldknjm*%9ceypx_y(6my*8f^hvsp7s%)
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
 
-ALLOWED_HOSTS = ["lawconnect.onrender.com"]
+ALLOWED_HOSTS = ["lawconnect-hcqs.onrender.com"]
 
 
 # Application definition
