@@ -80,8 +80,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'LawConnect',
         'USER': 'postgres',
-        'PASSWORD': 'jeffbezos10',
-        'HOST': 'localhost',  # Replace with your PostgreSQL server's address if necessary
+        'PASSWORD': 'omweezy10',
+        'HOST': 'localhost', 
         'PORT': '5432',
     }
 }
